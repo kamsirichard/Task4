@@ -9,6 +9,6 @@ import java.util.List;
 public interface BookRepository extends JpaRepository<Book, Long> {
     
     // JPQL query to find books by the author
-    @Query("SELECT b FROM Book b WHERE b.author = ?1")
-    List<Book> findByAuthor(String author);
+    //@Query("SELECT b FROM Book b WHERE b.author = ?1")
+    //List<Book> findByAuthor(String author);
 }
