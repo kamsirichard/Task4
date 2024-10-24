@@ -1,4 +1,4 @@
-package main.java.Task4.library_management.model;
+package Task4.library_management.model;
 
 import jakarta.persistence.*;
 import java.time.LocalDate;
@@ -37,6 +37,21 @@ public class Book {
 
     @Column(name = "availability_status")
     private String availabilityStatus;
+
+    public void setTitle(String title2) {
+        // TODO Auto-generated method stub you had to create this method to be able to use settitle in bookservice.java and some others
+        throw new UnsupportedOperationException("Unimplemented method 'setTitle'");
+    }
+
+    public void setAuthor(String author2) {
+        // TODO Auto-generated method stub
+        throw new UnsupportedOperationException("Unimplemented method 'setAuthor'");
+    }
+
+    public void setIsbn(String isbn2) {
+        // TODO Auto-generated method stub
+        throw new UnsupportedOperationException("Unimplemented method 'setIsbn'");
+    }
 
     // Getters and Setters
 }
