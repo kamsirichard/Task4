@@ -11,6 +11,8 @@ import java.util.List;
 @Repository
 public interface BookRepository extends JpaRepository<Book, Long> {
 
+    Borrower save(Borrower borrower);
+
     // Borrower save(Borrower borrower);
     
     // JPQL query to find books by the author
