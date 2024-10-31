@@ -1,6 +1,7 @@
 package Task4.library_management.service;
 
 import java.time.LocalDate;
+import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.repository.ListCrudRepository;
@@ -18,7 +19,7 @@ public class LoanService {
     private ListCrudRepository loanRepository;
 
     @SuppressWarnings("unchecked")
-    public Loan checkoutBook(Borrower borrower, Book book) {
+    public Loan checkoutBook(Borrower borrower, Optional<Book> book) {
         Loan loan = new Loan();
         loan.setBorrower(borrower);
         loan.setBook(book);

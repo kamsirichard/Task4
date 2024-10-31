@@ -1,6 +1,7 @@
 package Task4.library_management.service;
 
 import java.time.LocalDate;
+import java.util.Optional;
 
 import Task4.library_management.model.Book;
 import Task4.library_management.model.Borrower;
@@ -12,7 +13,7 @@ public class Loan {
         throw new UnsupportedOperationException("Unimplemented method 'setBorrower'");
     }
 
-    public void setBook(Book book) {
+    public void setBook(Optional<Book> book) {
         // TODO Auto-generated method stub
         throw new UnsupportedOperationException("Unimplemented method 'setBook'");
     }

@@ -1,5 +1,6 @@
 package Task4.library_management.service;
 import java.util.List;
+import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -29,5 +30,16 @@ public class BookService {
     // Business logic to get all books
     public List<Book> getAllBooks() {
         return bookRepository.findAll();
+    }
+
+
+    // Business logic to find a book by ID
+    public Optional<Book> getBookById(Long id) {
+        return bookRepository.findById(id);
+    }
+
+    // Business logic to delete a book by ID
+    public void deleteBook(Long id) {
+        bookRepository.deleteById(id);
     }
 }

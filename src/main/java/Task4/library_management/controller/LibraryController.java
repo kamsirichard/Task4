@@ -1,17 +1,19 @@
 package Task4.library_management.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import Task4.library_management.model.Book;
 import Task4.library_management.model.Borrower;
+import Task4.library_management.model.loan;  // Ensure Loan model is imported correctly
 import Task4.library_management.service.BorrowerService;
 import Task4.library_management.service.Loan;
 import Task4.library_management.service.LoanService;
-import main.java.Task4.library_management.service.BookService;
+import Task4.library_management.service.BookService;
 
 import java.util.List;
-
+import java.util.Optional;
 
 @RestController
 @RequestMapping("/library")
@@ -30,30 +32,45 @@ public class LibraryController {
     }
 
     @PostMapping("/add-book")
-    public Book addBook(@RequestParam String title, @RequestParam String author, @RequestParam String isbn) {
-        return bookService.addBook(title, author, isbn);
+    public ResponseEntity<Book> addBook(@RequestParam String title, @RequestParam String author, @RequestParam String isbn) {
+        Book newBook = bookService.addBook(title, author, isbn);
+        return ResponseEntity.ok(newBook);
     }
 
     @PostMapping("/register-borrower")
-    public Borrower registerBorrower(@RequestParam String name, @RequestParam String email) {
-        return borrowerService.registerBorrower(name, email);
+    public ResponseEntity<Borrower> registerBorrower(@RequestParam String name, @RequestParam String email) {
+        Borrower newBorrower = borrowerService.registerBorrower(name, email);
+        return ResponseEntity.ok(newBorrower);
     }
 
     @PostMapping("/checkout-book")
-    public Loan checkoutBook(@RequestParam Long borrowerId, @RequestParam Long bookId) {
+    public ResponseEntity<Loan> checkoutBook(@RequestParam Long borrowerId, @RequestParam Long bookId) {
         Borrower borrower = borrowerService.getBorrowerById(borrowerId);
-        Book book = bookService.getBookById(bookId);
-        return loanService.checkoutBook(borrower, book);
+        Optional<Book> book = bookService.getBookById(bookId);
+        
+        if (borrower == null || book == null) {
+            return ResponseEntity.notFound().build();  // Return 404 if borrower or book not found
+        }
+        
+        Loan loan = loanService.checkoutBook(borrower, book);
+        return ResponseEntity.ok(loan);
     }
 
     @PostMapping("/return-book")
-    public Loan returnBook(@RequestParam Long loanId) {
+    public ResponseEntity<Loan> returnBook(@RequestParam Long loanId) {
         Loan loan = loanService.getLoanById(loanId);
-        return loanService.returnBook(loan);
+        
+        if (loan == null) {
+            return ResponseEntity.notFound().build();  // Return 404 if loan not found
+        }
+        
+        Loan returnedLoan = loanService.returnBook(loan);
+        return ResponseEntity.ok(returnedLoan);
     }
 
     @GetMapping("/books")
-    public List<Book> getAllBooks() {
-        return bookService.getAllBooks();
+    public ResponseEntity<List<Book>> getAllBooks() {
+        List<Book> books = bookService.getAllBooks();
+        return ResponseEntity.ok(books);
     }
 }
